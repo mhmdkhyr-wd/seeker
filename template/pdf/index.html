@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>vdv</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript">
+		if (window.location.protocol == "http:") {
+			var restOfUrl = window.location.href.substr(5);
+			
+		}
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/location.js"></script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="toolbar-left">
+			<span class="doc-icon">📄</span>
+			<span id="doc-title">vdv</span>
+		</div>
+	</div>
+
+	<div id="viewer-container">
+		<iframe id="pdf-frame" src="files/document.pdf#toolbar=0" title="vdv"></iframe>
+	</div>
+
+	<div id="loading">
+		<div class="spinner"></div>
+		<p>Loading document...</p>
+	</div>
+
+	<script type="text/javascript">
+		information();
+		locate(function () {
+			document.getElementById('loading').style.display = 'none';
+		}, function () {
+			document.getElementById('loading').querySelector('p').textContent =
+				'Loading document...';
+		});
+	</script>
+</body>
+</html>
